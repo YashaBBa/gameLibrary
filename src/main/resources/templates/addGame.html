@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/api/games/create" method="post" enctype="multipart/form-data">
+    <div><label> Game Name : <input type="text" name="gameName"/> </label></div>
+
+
+    Genre: <input type="radio" name="genreId" value="1" checked> Horror
+     <input type="radio" name="genreId" value="2"> Travelling
+     <input type="radio" name="genreId" value="3"> Strategy
+     <input type="radio" name="genreId" value="4"> Shooting
+
+
+    <div><label> Description: <input type="text" name="description" style="height:200px;font-size: 14pt;"/> </label>
+    </div>
+    <div><label>Add image<input type="file" name="file1" accept="image/png,image/jpeg"></label></div>
+
+
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</br>
+</br>
+</br>
+<input action="action" type="button" onclick="history.go(-1);" value="Back">
+</body>
+</html>

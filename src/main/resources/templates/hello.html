@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <titl>Titile</titl>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style_hello.css}">
+</head>
+<body>
+Sort:
+<form action="/auth/hello/sortGames" method="get">
+    <input type="radio" name="id" value="1"> Horror
+    <input type="radio" name="id" value="2"> Travelling
+    <input type="radio" name="id" value="3"> Strategy
+    <input type="radio" name="id" value="4"> Shooting
+    <input type="radio" name="id" value="0" checked> All
+    <input type="submit" value="Sort By">
+</form>
+<tr th:each="game:${gameList}">
+    <td><a th:href="@{'/api/games/'+${game.getId()}}" th:text="${game.getGameName()}"></a></td></br>
+    <img th:src="@{'/static/images/'+${game.getFileName()}}" height="50px" width="50px">
+    <form th:if="${userObject.role.role.name()=='ADMIN'}" th:action="@{'/api/games/delete/'+${game.getId()}}"
+          method="post">
+        <div><input type="submit" value="Delete"></div>
+    </form>
+</tr>
+<a href="/main">Main Page</a>
+<a href="/api/games/create">Add game</a>
+
+<br>
+<form action="/auth/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>

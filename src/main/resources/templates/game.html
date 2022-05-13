@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p th:text="${games.getGameName()}"></p>
+<p th:text="${games.getDescription()}"></p>
+
+<form action="/api/games/addimg" method="post" th:if="${userObject.role.role.name()=='ADMIN'}" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/png,image/jpeg">
+    <input type="hidden" name="gameId" th:value="${games.getId()}" >
+    <input type="submit" value="Add img">
+</form>
+<tr th:each="img:${images}">
+    <img th:src="@{'/static/images/'+${img.getName()}}">
+</tr>
+STARS
+<p th:text="${games.getMidlScore()}"></p>
+<tr th:each="com:${comments}">
+    <td th:text="${com.getUser().getNickname()}"></td>
+    <br/>
+    <td th:text="COMMENT"></td>
+    <br/>
+    <td th:text="${com.getComment()}"></td>
+    <form th:if="${com.user.id == userObject.id} or ${userObject.role.role.name()=='ADMIN'}"
+          th:action="@{'/api/games/comment/'+${com.getId()}}" method="post">
+        <div><input type="hidden" name="gamesId" th:value="${com.getGames().getId()}"></div>
+        <div><input type="submit" value="Delete"></div>
+    </form>
+
+
+    <br/>
+    <br/>
+</tr>
+<form action="/api/games/sendcomment" method="post">
+    <div><label><input type="text" name="comment" value="Ur Comment"/> </label></div>
+    Stars: <input type="radio" name="stars" value="1"> 1
+    <input type="radio" name="stars" value="2"> 2
+    <input type="radio" name="stars" value="3"> 3
+    <input type="radio" name="stars" value="4"> 4
+    <input type="radio" name="stars" value="5"> 5
+
+    <div><input type="hidden" name="nickname" value="${user.name}"></div>
+    <div><input type="hidden" name="gamesId" th:value="${games.getId()}"></div>
+    <div><input type="submit" value="Send"/></div>
+</form>
+</br>
+</br>
+</br>
+<input action="action" type="button" onclick="history.go(-1);" value="Back">
+</body>
+</html>
